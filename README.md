@@ -1,6 +1,8 @@
 # Einen Algorithmus, der die Platzverteilung berechnet
 ## video link 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 https://drive.google.com/file/d/1J5axDGZUTr-nkl8-W-1Kgu_-nk9aVq2_/view
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ![java](https://github.com/BermetBatieva/PoolWHZ/blob/main/Image/img.png)
 ```java
 listOfPlaceNumbers =    [0, 1, 3 ...]
