@@ -9,18 +9,23 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class AllocationTest {
-
+    /**
+     * Dieser Test prüft die Machbarkeit der shift()-Funktion,
+     * um zu prüfen, ob die Verschiebung korrekt war
+     */
     @Test
     public void shift() {
         Allocation alObject = new Allocation();
-        alObject.initial(10); // [0,0,0,0,0...0] , [0,1,2,3...9]
+        alObject.initial(10); // listOfPlacesOccupancy : [0,0,0,0,0...0] ,listOfPlaceNumbers : [0,1,2,3...9]
         alObject.listOfPlacesOccupancy.set(2,1);
-        alObject.listOfPlacesOccupancy.set(5,1);// [0,0,1,0,0,1,...0] , [0,1,2,3...9]
+        alObject.listOfPlacesOccupancy.set(5,1);// listOfPlacesOccupancy :[0,0,1,0,0,1,...0] ,listOfPlaceNumbers : [0,1,2,3...9]
         alObject.shift(alObject.listOfPlacesOccupancy,alObject.listOfPlaceNumbers);
 
-        String expectedOccupancyResult = "1001000000";
+        //erwartete Werte
+        String expectedOccupancyResult =    "1001000000";
         String expectedPlaceNumbersResult = "2345678901";
 
+        //result
         StringBuilder occupancyResult = new StringBuilder();
         StringBuilder placeNumbersResult = new StringBuilder();
 
@@ -28,16 +33,21 @@ public class AllocationTest {
             occupancyResult.append(alObject.listOfPlacesOccupancy.get(i));
             placeNumbersResult.append(alObject.listOfPlaceNumbers.get(i));
         }
+        //zwei Werte vergleichen
         assertEquals(expectedOccupancyResult,occupancyResult.toString());
         assertEquals(expectedPlaceNumbersResult,placeNumbersResult.toString());
     }
 
+    /**
+     * Dieser Test überprüft die Machbarkeit der Funktion getEmptyPlacesList(),
+     * um die korrekten aufeinanderfolgenden leerer Plätze (Sonnenliegen) bekommen.
+     */
     @Test
     public void getEmptyPlacesList() {
         Allocation alObject = new Allocation();
-        alObject.initial(10); // [0,0,0,0,0...0] , [0,1,2,3...9]
+        alObject.initial(10); // listOfPlacesOccupancy : [0,0,0,0,0...0] , listOfPlaceNumbers : [0,1,2,3...9]
         alObject.listOfPlacesOccupancy.set(0,1);
-        alObject.listOfPlacesOccupancy.set(5,1);// [1,0,0,0,0,1,...0] , [0,1,2,3...9]
+        alObject.listOfPlacesOccupancy.set(5,1);// listOfPlacesOccupancy:[1,0,0,0,0,1,1...0] ,listOfPlaceNumbers:[0,1,2,3...9]
         alObject.listOfPlacesOccupancy.set(6,1);
 
         List<Integer> expectedEmptyList1 = new ArrayList<>();
@@ -56,12 +66,17 @@ public class AllocationTest {
         assertArrayEquals(expectedEmptyList2.toArray(),resultEmptyLists.get(1).toArray());
     }
 
+
+    /**
+     * Dieser Test überprüft die Funktionalität der Funktion takePlace()
+     * ob die aufeinanderfolgenden leeren Plätze richtig vergeben wurden
+     */
     @Test
     public void takePlace() {
         Allocation alObject = new Allocation();
-        alObject.initial(7); // [0,0,0,0,0...0] , [0,1,2,3...9]
+        alObject.initial(7); // listOfPlacesOccupancy:[0,0,0,0,0...0] ,listOfPlaceNumbers:[0,1,2,3...9]
         alObject.listOfPlacesOccupancy.set(0,1);
-        alObject.listOfPlacesOccupancy.set(5,1);// [1,0,0,0,0,1,...0] , [0,1,2,3...9]
+        alObject.listOfPlacesOccupancy.set(5,1);// listOfPlacesOccupancy: [1,0,0,0,0,1,...0] ,listOfPlaceNumbers:[0,1,2,3...9]
         List<List<Integer>> emptyPlacesList1 = alObject.getEmptyPlacesList(alObject.listOfPlacesOccupancy,alObject.listOfPlaceNumbers);
         alObject.takePlace(3,emptyPlacesList1);
 
@@ -85,7 +100,10 @@ public class AllocationTest {
         assertArrayEquals(expectedOccupancyList.toArray(),alObject.listOfPlacesOccupancy.toArray());
     }
 
-
+    /**
+     * Dieser Test prüft die Funktionalität der Funktion deleteGroupFromTakenPlaces(),
+     * ob es richtig war, die Gruppe und die Sonnenliegen, auf denen diese Gruppe lag, zu löschen
+     */
     @Test
     public void deleteGroupFromTakenPlaces() {
         Allocation alObject = new Allocation();

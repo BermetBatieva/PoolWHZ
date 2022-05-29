@@ -27,7 +27,7 @@ public interface AllocationRepository {
     /** (Implementierung in der Klasse Allocation.java)
      * Diese Methode zum Verschieben der Liste (Implementierung in der Klasse Allocation)
      * @param lstOfPlacesOccupancy - Liste mit Sonnenliegenstatus (0 -ist nicht besetzt, 1 - ist besetzt)
-     * @param lstOfPlaceNumbers - Nummerierung der Sonnenliegen [0,1,3,...n]
+     * @param lstOfPlaceNumbers - Nummerierung der Sonnenliegen [0,1,3,...n-1]
      */
     void shift(List<Integer> lstOfPlacesOccupancy, List<Integer> lstOfPlaceNumbers);
 

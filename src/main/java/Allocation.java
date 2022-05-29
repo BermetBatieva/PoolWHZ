@@ -121,10 +121,9 @@ public class Allocation implements AllocationRepository {
 
     /**
      * Diese Methode zum Verschieben der Liste,
-     * falls die Liste lstOfPlacesOccupancy am Anfang und am Ende 0 hat,
-     * verschiebt alle 0-en an das Ende der Liste
-     * @param lstOfPlacesOccupancy und verschiebt auch
-     * @param lstOfPlaceNumbers, um die Nummerierung beizubehalten
+     * falls die Liste lstOfPlacesOccupancy am Anfang 0 hat,
+     * verschiebt alle 0-en an das Ende der Liste lstOfPlacesOccupancy
+     * und verschiebt auch lstOfPlaceNumbers, um die Nummerierung beizubehalten
 
      * lstOfPlacesOccupancy - Liste mit Sonnenliegenstatus (0 -ist nicht besetzt, 1 - ist besetzt)
      * lstOfPlaceNumbers - Nummerierung der Sonnenliegen [0,1,3,...n]
@@ -154,7 +153,7 @@ public class Allocation implements AllocationRepository {
         for (int i = 0; i < lstOfPlacesOccupancy.size(); i++){
             if (lstOfPlacesOccupancy.get(i) == 0){
                 tmp.add(lstOfPlaceNumbers.get(i));
-                if (i == lstOfPlacesOccupancy.size() - 1) // случай когда в конце 0
+                if (i == lstOfPlacesOccupancy.size() - 1)
                     freePlacesList.add(tmp);
             }else if(lstOfPlacesOccupancy.get(i) == 1) {
                 if (tmp.size() > 0)
@@ -212,8 +211,9 @@ public class Allocation implements AllocationRepository {
 
     /**
      * Diese Methode entfernt die verlassende Gruppe
-     (mit Map, wo es einen Key(groupNr) und einen Value(listOfPlaceNumbers) gibt)
-     * Das heißt, es ersetzt belegte(1) Plätze durch freie(0) Plätze in der listOfPlacesOccupancy-Liste.
+     (mit Map, wo es einen Key(groupNr) und einen Value(besetzte Plätze durch diese Gruppe) gibt)
+     * Dies bedeutet, dass die belegten(1) Plätze durch die freien(0) Plätze
+     * in der Liste listOfPlacesOccupancy nach Gruppennummer(Key) ersetzt werden
      * @param groupNr -die Gruppennummer
      */
     @Override
